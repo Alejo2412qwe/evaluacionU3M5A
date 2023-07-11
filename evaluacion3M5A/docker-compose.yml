@@ -1,25 +1,29 @@
-version: '3.8'
+version: '3.3'
 services:
-  evaluacion3-app:
+  app:
     build: .
-    image: evaluacion3-app
-    environment:
-      - MONGODB_URL=mongodb://mongodb:27017/mongoContainer
     ports:
-      - '8081:8080'
+      - 8081:8080
     depends_on:
-      - mongodb
+      - mongo
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongo
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_DATABASE: bdMongo
     volumes:
       - .:/src
 
-  mongodb:
-    image: mongo:latest
+  mongo:
+    image: mongo
+    container_name: mongodb
+    restart: always
     ports:
-      - '2412:27017'
+      - 2412:27017
     volumes:
       - dbdata6:/data/db
 
+
 volumes:
-  dbdata6:
+    dbdata6:
 
     
